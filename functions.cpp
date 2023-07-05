@@ -47,8 +47,44 @@ void mergeSort(std::vector<int>& numbers, const int begin, const int end) {
     }
 }
 
-void quickSort(std::vector<int>& numbers) {
-    // Implementar BubbleSort
+
+int partition(std::vector<int>& numbers, const int begin, const int end) {
+
+    // Suppose number in the middle as pivot initially
+    int mid = begin + (end - begin)/2;
+    int pivot = numbers[mid];
+
+    int beginStart = begin;
+    int endStart = end;
+
+    // All elements greater than the pivot are moved to the right side of the pivot.
+    // All elements smaller than the pivot are moved to the left side of the pivot.
+    while (beginStart <= endStart) {
+        // Check if there's number on the left of pivot to swap
+        while (numbers[beginStart] < pivot)
+            beginStart++;
+        // Check if there's number on the right of pivot to swap
+        while (numbers[endStart] > pivot)
+            endStart--;
+        // If there is a pair on different halves to swap
+        // Do the swap
+        if (beginStart <= endStart)
+            std::swap(numbers[beginStart++], numbers[endStart--]);
+    }
+
+    // Return the new pivot index after partition
+    return beginStart;
+}
+
+void quickSort(std::vector<int>& numbers, const int begin, const int end) {
+    if (begin < end) {
+        // Rearrange elements based on the pivot value
+        int pivotIndex = partition(numbers, begin, end);
+        // Sort sub-array with numbers smaller than pivot
+        quickSort(numbers, begin, pivotIndex - 1);
+        // Sort sub-array with numbers greater than pivot
+        quickSort(numbers, pivotIndex, end);
+    }
 }
 
 void bubbleSort(std::vector<int>& numbers) {
