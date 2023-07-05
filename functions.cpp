@@ -59,7 +59,7 @@ int partition(std::vector<int>& numbers, const int begin, const int end) {
 
     // All elements greater than the pivot are moved to the right side of the pivot.
     // All elements smaller than the pivot are moved to the left side of the pivot.
-    while (beginStart <= endStart) {
+    while (beginStart < endStart) {
         // Check if there's number on the left of pivot to swap
         while (numbers[beginStart] < pivot)
             beginStart++;
@@ -88,5 +88,19 @@ void quickSort(std::vector<int>& numbers, const int begin, const int end) {
 }
 
 void bubbleSort(std::vector<int>& numbers) {
-    // Implementar BubbleSort
+    bool swapped;
+    // Compare each number with all the others after it
+    for (unsigned int i = 0; i < numbers.size() - 1; i++) {
+        swapped = false;
+        for (unsigned int j = 0; j < numbers.size() - i - 1; j++) {
+            if (numbers[j] > numbers[j + 1]) {
+                std::swap(numbers[j], numbers[j + 1]);
+                swapped = true;
+            }
+        }
+        // If a round of comparison makes no swaps,
+        // whole vector is already sorted
+        if (!swapped)
+            break;
+    }
 }

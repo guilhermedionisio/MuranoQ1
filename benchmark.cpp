@@ -2,8 +2,9 @@
 #include "functions.h"
 
 int main() {
-    std::vector<int> numbers = {5, 2, 3, 2, 7, 4, 20};
-    std::vector<int> numbersCopy = numbers;
+    std::vector<int> numbers = {5, 2, 3, 2, 5, 7, 4, 20, 20, 19};
+    std::vector<int> numbersCopy1 = numbers;
+    std::vector<int> numbersCopy2 = numbers;
 
     std::cout << "Unsorted Vector: ";
     for (auto& num : numbers) {
@@ -19,9 +20,17 @@ int main() {
     }
     std::cout << std::endl;
 
-    quickSort(numbersCopy, 0, numbersCopy.size() - 1);
+    quickSort(numbersCopy1, 0, numbersCopy1.size() - 1);
 
     std::cout << "Quick Sort Sorted Vector: ";
+    for (auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    quickSort(numbersCopy2, 0, numbersCopy2.size() - 1);
+
+    std::cout << "Bubble Sort Sorted Vector: ";
     for (auto& num : numbers) {
         std::cout << num << " ";
     }
