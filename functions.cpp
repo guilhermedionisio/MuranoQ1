@@ -1,6 +1,6 @@
 #include "functions.h"
 
-void merge2Vecs(std::vector<int>& numbers, std::vector<int>& auxVec, const int begin, const int mid, const int end) {
+void merge2Vecs(std::vector<float>& numbers, std::vector<float>& auxVec, const int begin, const int mid, const int end) {
     int beginStart = begin;
     int middleStart = mid + 1;
     int sortedIndex = 0;
@@ -28,7 +28,7 @@ void merge2Vecs(std::vector<int>& numbers, std::vector<int>& auxVec, const int b
         numbers[begin + i] = auxVec[i];
 }
 
-void mergeSort(std::vector<int>& numbers, std::vector<int>& auxVec, const int begin, const int end) {
+void mergeSort(std::vector<float>& numbers, std::vector<float>& auxVec, const int begin, const int end) {
     if (end > begin) {
         int mid = begin + (end - begin)/2;
         // Sort the first half of the vector recursively
@@ -41,18 +41,18 @@ void mergeSort(std::vector<int>& numbers, std::vector<int>& auxVec, const int be
 }
 
 
-int partition(std::vector<int>& numbers, const int begin, const int end) {
+int partition(std::vector<float>& numbers, const int begin, const int end) {
 
     // Suppose number in the middle as pivot initially
     int mid = begin + (end - begin)/2;
-    int pivot = numbers[mid];
+    float pivot = numbers[mid];
 
     int beginStart = begin;
     int endStart = end;
 
     // All elements greater than the pivot are moved to the right side of the pivot.
     // All elements smaller than the pivot are moved to the left side of the pivot.
-    while (beginStart < endStart) {
+    while (beginStart <= endStart) {
         // Check if there's number on the left of pivot to swap
         while (numbers[beginStart] < pivot)
             beginStart++;
@@ -69,7 +69,7 @@ int partition(std::vector<int>& numbers, const int begin, const int end) {
     return beginStart;
 }
 
-void quickSort(std::vector<int>& numbers, const int begin, const int end) {
+void quickSort(std::vector<float>& numbers, const int begin, const int end) {
     if (begin < end) {
         // Rearrange elements based on the pivot value
         int pivotIndex = partition(numbers, begin, end);
@@ -80,7 +80,7 @@ void quickSort(std::vector<int>& numbers, const int begin, const int end) {
     }
 }
 
-void bubbleSort(std::vector<int>& numbers) {
+void bubbleSort(std::vector<float>& numbers) {
     bool swapped;
     // Compare each number with all the others after it
     for (unsigned int i = 0; i < numbers.size() - 1; i++) {
@@ -98,12 +98,12 @@ void bubbleSort(std::vector<int>& numbers) {
     }
 }
 
-std::vector<int> generateRandomNumbers(unsigned int size) {
+std::vector<float> generateRandomNumbers(unsigned int size) {
     std::random_device device;
     std::mt19937 generator(device());
-    std::uniform_int_distribution<int> distribution(-100000, 100000);
+    std::uniform_real_distribution<float> distribution(-100000.0, 100000.0);
 
-    std::vector<int> numbers(size);
+    std::vector<float> numbers(size);
     for (unsigned int i = 0; i < size; i++) {
         numbers[i] = distribution(generator);
     }
