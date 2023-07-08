@@ -110,3 +110,152 @@ std::vector<float> generateRandomNumbers(unsigned int size) {
 
     return numbers;
 }
+
+void sortingTest(std::vector<float> numbers) {
+    std::vector<float> numbersCopy1 = numbers;
+    std::vector<float> numbersCopy2 = numbers;
+    std::vector<float> Vec(numbers.size());
+
+    std::cout << "Unsorted Vector: ";
+    for (auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    mergeSort(numbers, Vec, 0, numbers.size() - 1);
+    std::cout << "Merge Sort Sorted Vector: ";
+    for (auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    quickSort(numbersCopy1, 0, numbersCopy1.size() - 1);
+    std::cout << "Quick Sort Sorted Vector: ";
+    for (auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    bubbleSort(numbersCopy2);
+    std::cout << "Bubble Sort Sorted Vector: ";
+    for (auto& num : numbers) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+}
+
+std::vector<long> measureSortTime(unsigned int N, std::vector<long> measTimes) {
+    std::vector<float> numbersMerge = generateRandomNumbers(N);
+    std::vector<float> numbersQuick = numbersMerge;
+    std::vector<float> numbersBubble = numbersMerge;
+    long mergeTime, quickTime, bubbleTime;
+    std::ofstream file("sort_times.csv", std::ios::app);
+
+    std::cout << std::endl;
+    std::cout << "N = " << N << std::endl;
+    std::cout << std::endl;
+
+    /* --------------------- MERGE SORT --------------------------- */
+
+    mergeTime = measureMergeTime(numbersMerge);
+
+    /* --------------------- QUICK SORT --------------------------- */
+
+    quickTime = measureQuickTime(numbersQuick);
+
+    /* --------------------- BUBBLE SORT --------------------------- */
+        
+
+    // Estimate time for bubble sort after N=1e5
+    if (N == E5){
+        bubbleTime = measureBubbleTime(numbersBubble);
+    }
+    else {
+        bubbleTime = estimateBubbleSortTime(measTimes[2]);
+    }
+
+    /* --------------------- ADD TO FILE --------------------------- */
+
+    // Column = Time duration of sorting
+    // Row = Qty of numbers generated
+    file << N << "," << mergeTime << "," << quickTime << "," << bubbleTime << std::endl;
+    return {mergeTime, quickTime, bubbleTime};
+}
+
+long measureMergeTime(std::vector<float> numbers) {
+
+    auto start = std::chrono::high_resolution_clock::now();
+    std::vector<float> auxVec(numbers.size());
+    mergeSort(numbers, auxVec, 0, numbers.size() - 1);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto durationMerge = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+    
+    long mergeTime = durationMerge.count();
+    std::cout << "Merge Sort Time: " << mergeTime << " ms" << std::endl;
+    return mergeTime;
+}
+
+long measureQuickTime(std::vector<float> numbers) {
+
+    auto start = std::chrono::high_resolution_clock::now();
+    quickSort(numbers, 0, numbers.size() - 1);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto durationQuick = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    long quickTime = durationQuick.count();
+    std::cout << "Quick Sort Time: " << durationQuick.count() << " ms" << std::endl;
+    
+    return quickTime;
+}
+
+long measureBubbleTime(std::vector<float> numbers) {
+
+    auto start = std::chrono::high_resolution_clock::now();
+    bubbleSort(numbers);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto durationBubble = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    long bubbleTime = durationBubble.count();
+    std::cout << "Bubble Sort Time: " << bubbleTime << " ms" << std::endl;
+    
+    return bubbleTime;
+}
+
+void estimateSortTime(unsigned int N, std::vector<long> lastMeasuredTimes) {
+    std::ofstream file("sort_times.csv", std::ios::app);
+
+    std::cout << std::endl;
+    std::cout << "N = " << N << std::endl;
+    std::cout << std::endl;
+    
+    long estMergeSortTime = estimateMergeSortTime(lastMeasuredTimes[0]);
+    long estQuickSortTime = estimateQuickSortTime(lastMeasuredTimes[1]);
+    long estBubbleSortTime = estimateBubbleSortTime(lastMeasuredTimes[2]);
+
+    file << N << "," << estMergeSortTime << "," << estQuickSortTime << "," << estBubbleSortTime << std::endl;
+
+}
+
+long estimateMergeSortTime(long lastMeasuredTime) {
+    // EstimatedTime = lastMeasuredTime * N*log2(N) / (oldN*log2(oldN)) = lastMeasuredTime * 130
+    long estTime;
+    estTime = lastMeasuredTime * 100 * 1.3;
+    std::cout << "Merge Sort Time: " << estTime << " ms" << std::endl;
+    return estTime;
+}
+
+long estimateQuickSortTime(long lastMeasuredTime) {
+    // EstimatedTime = lastMeasuredTime * N*log2(N) / (oldN*log2(oldN)) = lastMeasuredTime * 130
+    long estTime;
+    estTime = lastMeasuredTime * 130;
+    std::cout << "Quick Sort Time: " << estTime << " ms" << std::endl;
+    return estTime;
+}
+
+long estimateBubbleSortTime( long lastMeasuredTime) {
+    // EstimatedTime = lastMeasuredTime * N^2 / oldN^2 = lastMeasuredTime * 10^4
+    long estTime;
+    estTime = lastMeasuredTime * 100 * 100;
+    std::cout << "Bubble Sort Time: " << estTime << " ms" << std::endl;
+    return estTime;
+}
