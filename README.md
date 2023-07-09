@@ -44,13 +44,13 @@ Ao analisar a tabela já é possível perceber a disparidade entre as ordens de 
 
 Inicialmente compararemos todos os algoritmos através do gráfico:
 
-![Tempo de Execução para diferentes quantidades de elementos]("images/tempo_execucao.png")
+![Tempo de Execução para diferentes quantidades de elementos](images/tempo_execucao.png)
 
 A curva do algoritmo de Bubble Sort, como esperado, mostra uma curva acentuada característica de uma complexidade quadrática de modo que, a inclinação da curva dos algoritmos de Merge e Quick Sort, que possuem características logarítmicas, se tornam imperceptíveis quando mostradas em um mesmo gráfico.
 
 Um outro gráfico interessante é a comparação entre os algoritmos de Merge e Quick Sort para elementos gerados aleatoriamente:
 
-![Tempo de Execução dos algoritmos Merge e Quick]("images/mergequick.png")
+![Tempo de Execução dos algoritmos Merge e Quick](images/mergequick.png)
 
 É possível perceber que o algoritmo de Merge tem um desempenho pior em relação ao algoritmo Quick nesse cenário. Acredito que isso aconteça devido à minha implementação utilizar um vetor auxiliar para copiar o vetor mesclado ao vetor de números original em todos os processos de mesclagem, incrementando o tempo de execução.  
 Um outro ponto a se destacar é que o algoritmo de Quick Sort possui a mesma Complexidade Temporal do algoritmo de Merge porém, possui Complexidade Espacial menor demonstrando superioridade em cenários como o desse desafio em que existem uma quantidade de elementos enorme. 
