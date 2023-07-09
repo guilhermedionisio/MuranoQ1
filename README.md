@@ -14,7 +14,7 @@ Este é um projeto em C++ que realiza testes e medições de tempo de execução
 | Algoritmo     | Complexidade Temporal | Complexidade Espacial |
 |---------------|----------------------|-----------------------|
 | Merge Sort    | O(N*log(N))          | O(N)                  |
-| Quick Sort    | O(N*log(N)) (médio)  | O(log(N))             |
+| Quick Sort    | O(N*log(N))          | O(log(N))             |
 | Bubble Sort   | O(N^2)               | O(1)                  |
 
 ## Organização do Projeto
@@ -29,6 +29,12 @@ Este é um projeto em C++ que realiza testes e medições de tempo de execução
 A proposta é que sejam avaliados os algoritmos para as quantidades: 10^5, 10^7, 10^9. Para o algoritmo Bubble Sort, apenas o tempo de execução para N = 10^5 é medido diretamente, pois o tempo de execução para N = 10^7 é muito longo. Já para os algoritmos Merge Sort e Quick Sort, o tempo de execução é medido para N = 10^5 e N = 10^7. No caso de N = 10^9, o tempo de execução para esses algoritmos é estimado, pois o uso de memória para armazenar 10^9 floats se mostrou impráticavel. Todas as estimativas tomaram como base a Complexidade Temporal de cada algoritmo.
 
 ## Execução da Implementação
+
+Para executar a implementação com um compilador C++ instalado basta:
+1. Clonar o repositório com o comando `git clone https://github.com/guilhermedionisio/MuranoQ1.git`
+2. Dentro do repositório usar o comando `make`
+3. Executar o arquivo com `./benchmark`
+4. Apagar arquivos objetos e resultados com `make clean`
 
 ## Resultados e Saída
 
